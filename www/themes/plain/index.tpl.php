@@ -1,4 +1,4 @@
-<? if (empty($files)) header("HTTP/1.0 404 Not Found"); ?>
+<?php if (empty($files)) header("HTTP/1.0 404 Not Found"); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
    "http://www.w3.org/TR/html4/strict.dtd">
 
@@ -123,54 +123,54 @@
         <li>
           <a href="<?= $config['base-path'] ?>/"><?= $config['bucket-name'] ?>/</a>
         </li>
-        <? foreach (S3Browser::getBreadcrumb($dir) as $key => $name): ?>
-        <? if ($key != '/'): ?>
+        <?php foreach (S3Browser::getBreadcrumb($dir) as $key => $name): ?>
+        <?php if ($key != '/'): ?>
         <li><a href="<?= $config['base-path'] ?>/<?= $name ?>"><?= $key ?>/</a></li>
-        <? endif; ?>
-        <? endforeach ?>
+        <?php endif; ?>
+        <?php endforeach ?>
       </ul>
     </div>
 
-    <? if (empty($files)): ?>
+    <?php if (empty($files)): ?>
       <p>No files found.</p>
-    <? else: ?>
+    <?php else: ?>
     <ul>
 
-    <? if (S3Browser::getParent($dir) !== null): ?>
+    <?php if (S3Browser::getParent($dir) !== null): ?>
       <li>
         <a href="<?= $config['base-path'] ?>/<?= S3Browser::getParent($dir) ?>">
           <img src="<?= $config['base-path'] ?>/themes/plain/img/arrow_top.gif">
           <span>..</span>
         </a>
       </li>
-    <? endif; ?>
-    <? foreach ($files as $key => $info): ?>
-      <? $asTorrent = (!is_null($config['torrent-threshold']) && $info['size'] > $config['torrent-threshold']); ?>
-      <? $useSignedUrl = (!is_null($config['s3-signed-url']) && $config['s3-signed-url']); ?>
+    <?php endif; ?>
+    <?php foreach ($files as $key => $info): ?>
+      <?php $asTorrent = (!is_null($config['torrent-threshold']) && $info['size'] > $config['torrent-threshold']); ?>
+      <?php $useSignedUrl = (!is_null($config['s3-signed-url']) && $config['s3-signed-url']); ?>
       <li>
-        <? if (is_array($info['files'])): ?>
+        <?php if (is_array($info['files'])): ?>
           <a href="<?= $config['base-path'] ?>/<?= $info['path'] ?>">
             <img src="<?= $config['base-path'] ?>/themes/plain/img/folder.gif">
             <span><?= $key ?></span>
           </a>
-        <? else: ?>
-          <?
+        <?php else: ?>
+          <?php
             if ($config['proxy-download']):
               $url_prefix = $config['base-path'].'/proxy';
             else:
               $url_prefix = $config['bucket-url-prefix'];
             endif;
           ?>
-          <a href="<?= $url_prefix ?>/<?= $info['path'] ?><? if ($useSignedUrl): ?>?<?= $info['signature']  ?><? endif; ?>" <? if (isset($config['google-analytics-id'])): ?>onclick="javascript:pageTracker._trackPageview('<?= $info['path'] ?>');"<? endif; ?>>
+          <a href="<?= $url_prefix ?>/<?= $info['path'] ?><?php if ($useSignedUrl): ?>?<?= $info['signature']  ?><?php endif; ?>" <?php if (isset($config['google-analytics-id'])): ?>onclick="javascript:pageTracker._trackPageview('<?= $info['path'] ?>');"<?php endif; ?>>
           <img src="<?= $config['base-path'] ?>/themes/plain/img/file.gif">
           <span><?= $key ?></span>
         </a>
         <span class="size"><?= $info['hsize'] ?></span>
-        <? endif; ?>
+        <?php endif; ?>
       </li>
-    <? endforeach; ?>
+    <?php endforeach; ?>
     </ul>
-    <? endif; ?>
+    <?php endif; ?>
 
   </div>
 
@@ -178,7 +178,7 @@
     <p>Powered by <a href="http://github.com/xakraz/s3browser/" target="_blank">S3 Browser</a></p>
   </div>
 
-  <? if (isset($config['google-analytics-id'])): ?>
+  <?php if (isset($config['google-analytics-id'])): ?>
   <script type="text/javascript">
   var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
   document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
@@ -188,6 +188,6 @@
   pageTracker._initData();
   pageTracker._trackPageview();
   </script>
-  <? endif; ?>
+  <?php endif; ?>
 </body>
 </html>
