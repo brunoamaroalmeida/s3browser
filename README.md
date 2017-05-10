@@ -1,7 +1,7 @@
 Amazon S3 Directory Browser
 ===========================
 
-Please report any issues [here on GitHub](https://github.com/powdahound/s3browser/issues).
+Please report any issues [here on GitHub](https://github.com/brunoamaroalmeida/s3browser/issues).
 
 
 Configuration
@@ -10,24 +10,41 @@ Configuration
 The app configures itself thanks to environment variables.
 The list of the supported variables are defined in the [config file](www/config.php).
 
+Apache Setup in Debian
+-------------
+
+apt-get install apache2 -qy
+apt-get install php5 libapache2-mod-php5 php5-curl libapache2-mod-proxy-html libxml2-dev -qy
+
+a2enmod proxy
+a2enmod proxy_http
+a2enmod proxy_ajp
+a2enmod rewrite
+a2enmod deflate
+a2enmod headers
+a2enmod proxy_balancer
+a2enmod proxy_connect
+a2enmod proxy_html
+
+service apache2 restart
 
 Installation with Apache
 ----------------------
 
 1. Check out the latest release from GitHub:
 
-        cd /srv/www
-        git clone git@github.com:powdahound/s3browser.git
+        cd /var/www/html
+        git clone https://github.com/brunoamaroalmeida/s3browser.git
 
 2. Add an Apache VirtualHost for your new subdomain. e.g.:
 
         <VirtualHost *:80>
           ServerName s3browser.example.com
-          DocumentRoot /srv/www/s3browser/www
+          DocumentRoot /var/www/html/s3browser/www
 
           <Directory />
             AllowOverride all
-            Order allow, deny
+            Order allow,deny
             Allow from all
           </Directory>
         </VirtualHost>

@@ -23,18 +23,18 @@ $c['torrent-threshold'] = getenv_default('TORRENT_THRESHOLD', null);
 $c['proxy-download'] = getenv_default('S3BROWSER_PROXY_DOWNLOAD', false);
 
 // Use signed URL
-$c['s3-signed-url'] = getenv_default('S3_SIGNED_URL', false);
+$c['s3-signed-url'] = getenv_default('S3_SIGNED_URL', true);
 
 // Amazon S3 access information
-$c['s3-access-key'] = getenv_default('S3_ACCESS_KEY');
-$c['s3-secret-key'] = getenv_default('S3_SECRET_KEY');
+$c['s3-access-key'] = getenv_default('S3_ACCESS_KEY','');
+$c['s3-secret-key'] = getenv_default('S3_SECRET_KEY','');
 
 // Bucket information should be cached so your S3 account doesn't need to be queried for every user request. Default cache-time is 10 minutes.
 $c['cache-time'] = getenv_default('CACHE_TIME', 60 * 10);
 $c['cache-dir'] = getenv_default('CACHE_DIR', '/tmp');
 
 // Bucket
-$c['bucket-name'] = getenv_default('BUCKET_NAME');
+$c['bucket-name'] = getenv_default('BUCKET_NAME','');
 $c['bucket-url-prefix'] = getenv_default('BUCKET_URL_PREFIX', 'http://'.$c['bucket-name'].'.s3.amazonaws.com');
 
 // Google analytics id to use for tracking
